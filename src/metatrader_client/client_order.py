@@ -12,6 +12,7 @@ from .order import get_all_pending_orders, get_pending_orders_by_symbol, get_pen
 from .order import place_market_order, place_pending_order, modify_position, modify_pending_order
 from .order import close_position, close_all_positions, close_all_positions_by_symbol, close_all_profitable_positions, close_all_losing_positions
 from .order import cancel_pending_order, cancel_all_pending_orders, cancel_pending_orders_by_symbol
+from .order import partial_close_position
 
 
 class MT5Order:
@@ -77,6 +78,13 @@ class MT5Order:
         return close_position(self._connection, id)
 
 
+        
+    def partial_close_position(self, id, volume):
+        return partial_close_position(
+            self._connection,
+            id=id,
+            volume=volume
+        )
     def cancel_pending_order(self, id: Union[int, str]):
         return cancel_pending_order(self._connection, id)
 
