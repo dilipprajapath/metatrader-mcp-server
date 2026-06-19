@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from typing import Optional, Union
 
 from metatrader_mcp.utils import init, get_client
+from metatrader_client.order.partial_close_position import partial_close_position
 
 # ────────────────────────────────────────────────────────────────────────────────
 # 1) Lifespan context definition
@@ -241,6 +242,19 @@ def cancel_pending_orders_by_symbol(ctx: Context, symbol: str) -> dict:
 	client = get_client(ctx)
 	return client.order.cancel_pending_orders_by_symbol(symbol=symbol)
 
+
+@mcp.tool()
+def partial_close_position_tool(
+    ctx: Context,
+    id: Union[int, str],
+    volume: float
+) -> dict:
+    """Partially close an open position."""
+    client = get_client(ctx)
+    return client.order.partial_close_position(
+        id=id,
+        volume=volume
+    )
 if __name__ == "__main__":
 	load_dotenv()
 	from metatrader_mcp.utils import resolve_transport_config, run_mcp
