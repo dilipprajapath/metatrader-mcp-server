@@ -187,6 +187,19 @@ def close_position(ctx: Context, id: Union[int, str]) -> dict:
 	return client.order.close_position(id=id)
 
 @mcp.tool()
+def partial_close_position(
+    ctx: Context,
+    id: Union[int, str],
+    volume: float
+) -> dict:
+    """Partially close an open position."""
+    client = get_client(ctx)
+    return client.order.partial_close_position(
+        id=id,
+        volume=volume
+    )
+
+@mcp.tool()
 def cancel_pending_order(ctx: Context, id: Union[int, str]) -> dict:
 	"""Cancel a pending order by ID."""
 	client = get_client(ctx)
